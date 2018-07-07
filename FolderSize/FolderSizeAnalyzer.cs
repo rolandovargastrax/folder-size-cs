@@ -5,6 +5,9 @@ using System.IO;
 
 namespace FolderSize {
 
+	/// <summary>
+	/// Class to house the results from analyzing the folder
+	/// </summary>
 	public class FolderSizeAnalyzerResults {
 		private string name;
 		public string Name {
@@ -86,6 +89,9 @@ namespace FolderSize {
 			}
 		}
 
+		/// <summary>
+		/// overrides the ToString method to display the results better when debugging
+		/// </summary>
 		override public string ToString() {
 			string size = string.Empty;
 			if (this.SizeInGigabytes > 1) {
@@ -100,13 +106,23 @@ namespace FolderSize {
 		}
 	}
 
+	/// <summary>
+	/// Class to calculate the size of the folder
+	/// </summary>
 	public class FolderSizeAnalyzer {
+
+		/// <summary>
+		/// Calculates the size of the folder given
+		/// </summary>
 		public FolderSizeAnalyzerResults CalculateFolderSize(string path) {
 			DirectoryInfo dirInfo = new DirectoryInfo(path);
 			return this.CalculateFolderSize(dirInfo);
 
 		}
 
+		/// <summary>
+		/// Calculates the size of the folder given
+		/// </summary>
 		public FolderSizeAnalyzerResults CalculateFolderSize(DirectoryInfo dirInfo) {
 			FolderSizeAnalyzerResults result = new FolderSizeAnalyzerResults();
 			result.Name = dirInfo.Name;
@@ -139,6 +155,9 @@ namespace FolderSize {
 			return result;
 		}
 
+		/// <summary>
+		/// Comparer used to sort the folders from most to lease space consumed
+		/// </summary>
 		public class FolderSizeAnalyzerResultsComparer : IComparer<FolderSizeAnalyzerResults> {
 			public int Compare(FolderSizeAnalyzerResults x, FolderSizeAnalyzerResults y) {
 				return y.SizeInBytes.CompareTo(x.SizeInBytes);
